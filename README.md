@@ -137,6 +137,13 @@ AddressBook::Person.where(:email => 'alex@example.com', :first_name => 'Alex')
 # => [#<AddressBook::Person:0x6d55e90 @attributes={:first_name=>"Alex", :last_name=>"Rothenberg", :job_title=>nil, :department=>nil, :organization=>nil} @ab_person=#<__NSCFType:0x6df8bf0>>]
 ```
 
+Get a list of all people with an email address `.with_email_address`
+
+```ruby
+AddressBook::Person.with_email_address
+# => [#<AddressBook::Person:0x6d55e90 @attributes={:first_name=>"Nicholas", :last_name=>"Hughes", :emails=>[{:value=>"nick@example.com", :label=>"Work"}]} @ab_person=#<__NSCFType:0x6df8bf0>>]
+```
+
 To look for an existing person or get a new one if none is found `find_or_new_by_XXX`
 
 ```ruby

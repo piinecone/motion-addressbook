@@ -61,6 +61,12 @@ module AddressBook
       end
     end
 
+    def self.with_email_address
+      all.select do |person|
+        person.email.present?
+      end
+    end
+
     def meets?(conditions)
       conditions.keys.all? do |attribute|
         case attribute
