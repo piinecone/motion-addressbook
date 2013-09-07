@@ -13,12 +13,12 @@ module AddressBook
       end
     end
 
-    def self.all(offset=0, limit=1000)
+    def self.all
       ab = AddressBook.address_book
       ab_people = ABAddressBookCopyArrayOfAllPeople(ab)
-      return [] if ab_people[offset, limit].nil?
+      return [] if ab_people.nil?
 
-      people = ab_people[offset,limit].map do |ab_person|
+      people = ab_people.map do |ab_person|
         new({}, ab_person, :address_book => ab)
       end
       people.sort! { |a,b| "#{a.first_name} #{a.last_name}" <=> "#{b.first_name} #{b.last_name}" }
@@ -62,9 +62,10 @@ module AddressBook
     end
 
     def self.with_email_address(offset=0, limit=1000)
-      all(offset,limit).select do |person|
+      contacts = all.select do |person|
         person.email.present?
       end
+      contacts[offset, limit]
     end
 
     def meets?(conditions)
